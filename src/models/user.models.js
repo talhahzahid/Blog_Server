@@ -17,12 +17,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-})
+}, { timestamps: true })
 
 userSchema.pre("save", async function (next) {
-    const user = this
+    const user = this;
     if (!user.isModified("password")) return
-    const hashPassword = bcrypt.hash(user.password, 10)
+    const hashPassword = await bcrypt.hash(user.password, 10)
     user.password = hashPassword
     next()
 })
