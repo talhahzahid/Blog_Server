@@ -10,7 +10,6 @@ const generateTokenFromUser = (user) => {
     });
 }
 
-
 // signUp Api
 const signUp = async (req, res) => {
     const { fullname, email, password } = req.body;
@@ -50,7 +49,11 @@ const signIn = async (req, res) => {
 
 }
 
+// logout 
+const logOut = async (req, res) => {
+    await res.clearCookie("token")
+    res.status(200).json({ message: "Logout succesfully" })
+}
 
 
-
-export { signUp, signIn }
+export { signUp, signIn, logOut }
