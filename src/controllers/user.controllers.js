@@ -1,17 +1,15 @@
-
 import users from "../models/user.models.js";
 import bcrypt from 'bcrypt'
 import jwt from "jsonwebtoken";
 
 // generative token fro user 
 const generateTokenFromUser = (user) => {
-    return jwt.sign({ email: user.email }, process.env.JWT_SECERT, {
-        expiresIn: '1d'
-    });
-}
-
-// signUp Api
-const signUp = async (req, res) => {
+        return jwt.sign({ email: user.email }, process.env.JWT_SECERT, {
+            expiresIn: '1d'
+        });
+    }
+    // signUp Api
+const signUp = async(req, res) => {
     const { fullname, email, password } = req.body;
     if (!email) return res.status(400).json({ messaage: "email is required" });
     if (!password) return res.status(400).json({ messaage: "password is required" });
@@ -27,7 +25,7 @@ const signUp = async (req, res) => {
 }
 
 // login Api 
-const signIn = async (req, res) => {
+const signIn = async(req, res) => {
     const { email, password } = req.body;
     if (!email) return res.status(400).json({ message: "email is required" });
     if (!password) return res.status(400).json({ message: "password is required" });
@@ -50,7 +48,7 @@ const signIn = async (req, res) => {
 }
 
 // logout 
-const logOut = async (req, res) => {
+const logOut = async(req, res) => {
     await res.clearCookie("token")
     res.status(200).json({ message: "Logout succesfully" })
 }
