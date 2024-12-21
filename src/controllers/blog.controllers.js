@@ -41,4 +41,23 @@ const editBlog = async (req, res) => {
     }
 }
 
-export { addBlog, deleteBlog, editBlog }
+const allBlog = async (req, res) => {
+    try {
+        await blog.find({})
+        res.status(200).json({ message: "ALl Blog" })
+    } catch (error) {
+        res.status(400).json({ message: 'error occured', error: error.message });
+    }
+}
+const singleBlog = async (req, res) => {
+    const { id } = req.params;
+    if (!id) return res.status(400).json({ message: "no blog found" })
+    try {
+        await blog.findById(id)
+        res.status(200).json({ message: "user blog found" })
+    } catch (error) {
+        res.status(400).json({ message: 'error occured', error: error.message });
+    }
+}
+
+export { addBlog, deleteBlog, editBlog, allBlog, singleBlog }
